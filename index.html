@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RS Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body ng-app="todoapp" ng-cloak>
+    <div ng-controller="todocontroller">
+        <header>
+            <img ng-src="{{ logo }}" alt="RealSprint Logo">
+            <h1>{{ title }}</h1>
+        </header>
+        <p ng-if="todos.length <= 0">Start adding todos!</p>
+        <ul ng-if="todos.length > 0">
+            <li ng-repeat="todo in todos | orderBy: ['done', 'body']" ng-class="{ isDone: todo.done }">
+                <input type="checkbox" ng-model="todo.done" id="todoid-{{$index}}" >
+                <label for="todoid-{{$index}}">{{ todo.body | capitalize }}</label>
+                <a class="remove-todo" href="#" ng-click="removeTodo(todo); $event.preventDefault()">x</a>
+            </li>
+        </ul>
+        <input type="text" ng-model="todoInput" on-enter="addTodo()">
+        <button ng-click="addTodo()">Add</button>
+    </div>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
